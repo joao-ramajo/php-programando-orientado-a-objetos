@@ -1,0 +1,2 @@
+2025-04-02 14-36-32 :: Inserindo produto novo 
+2025-04-02 14-36-32 :: INSERT INTO produto (id, descricao, estoque, preco_custo, preco_venda, codigo_barras, data_cadastro, origem) VALUES('7', 'Vinho brasileiro Tinto Merlot','10','12','18','1231243123','2025-04-02','N') 

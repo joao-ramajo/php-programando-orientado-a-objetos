@@ -1,0 +1,2 @@
+2025-04-06 00-03-00 :: Buscando produto 
+2025-04-06 00-03-00 :: SELECT * FROM produto WHERE id=2 

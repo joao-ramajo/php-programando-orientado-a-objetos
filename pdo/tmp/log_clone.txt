@@ -1,0 +1,4 @@
+2025-04-05 23-55-52 :: Clonando um produto 
+2025-04-05 23-55-52 :: SELECT * FROM produto WHERE id=1 
+2025-04-05 23-55-52 :: SELECT max(id) as max FROM produto 
+2025-04-05 23-55-52 :: INSERT INTO produto (descricao, estoque, preco_custo, preco_venda, codigo_barras, data_cadastro, origem, id ) VALUES (' (clonado) ', 10, 12, 18, '1231243123', '2025-04-05', 'N', 3 ) 

@@ -1,0 +1,3 @@
+2025-04-05 23-57-54 :: Buscando produto 
+2025-04-05 23-57-54 :: SELECT * FROM produto WHERE id=1 
+2025-04-05 23-57-54 :: DELETE FROM produto WHERE id=1 
