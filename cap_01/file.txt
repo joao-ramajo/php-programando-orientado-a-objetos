@@ -1,3 +1,0 @@
-Teste de comandos do Livro PHP Orientado a Objetos
-Segunda linha via comandos internos
-Obrigado Marcel...

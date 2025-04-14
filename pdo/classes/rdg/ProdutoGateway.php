@@ -25,6 +25,7 @@ class ProdutoGateway
         $sql = "SELECT * FROM produto WHERE id = '$id'";
         print $sql . PHP_EOL;
         $result = self::$conn->query($sql);
+ 
         return $result->fetchObject(__CLASS__);
     }
 
