@@ -1,5 +1,7 @@
 <?php
+
 namespace Livro\Database;
+
 use Exception;
 
 abstract class Record
@@ -70,11 +72,11 @@ abstract class Record
     public function store()
     {
         $prepared = $this->prepare($this->data);
-        
+
         // Verifica se tem ID ou se existe na base de dados
-        if (empty($this->data['id'] )) { // or (!$this->load($this->id))
+        if (empty($this->data['id'])) { // or (!$this->load($this->id))
             // Incrementa o ID 
-             print "POAKDOKASPDOK" . PHP_EOL;
+            print "POAKDOKASPDOK" . PHP_EOL;
             if (empty($this->data['id'])) {
                 $this->id = $this->getLast() + 1;
                 $prepared['id'] = $this->id;
@@ -87,7 +89,7 @@ abstract class Record
                 '(' . implode(', ', array_values($prepared)) . ' )';
         } else {
             //monta um update
-            
+
             $sql = "UPDATE {$this->getEntity()}";
             if ($prepared) {
                 foreach ($prepared as $column => $value) {
@@ -130,31 +132,32 @@ abstract class Record
         }
     }
 
-    public function delete($id = NULL) {
+    public function delete($id = NULL)
+    {
         $id = $id ? $id : $this->id;
 
         $sql = "DELETE FROM {$this->getEntity()}";
-        $sql .=" WHERE id=" . (int) $this->data['id'];
+        $sql .= " WHERE id=" . (int) $this->data['id'];
 
-        if($conn = Transaction::get()){
+        if ($conn = Transaction::get()) {
             Transaction::log($sql);
             $result = $conn->exec($sql);
             return $result;
-        }
-        else{
+        } else {
             throw new Exception('Não há transição ativa');
         }
-        
     }
 
-    public static function find($id){
+    public static function find($id)
+    {
         $classname = get_called_class();
         $ar = new $classname;
         return $ar->load($id);
     }
 
-    private function getLast(){
-        if($conn = Transaction::get()){
+    private function getLast()
+    {
+        if ($conn = Transaction::get()) {
             $sql = "SELECT max(id) as max FROM {$this->getEntity()}";
 
             Transaction::log($sql);
@@ -164,36 +167,32 @@ abstract class Record
             $row = $result->fetch();
 
             return $row[0];
-        }
-        else{
+        } else {
             throw new Exception('Não há transação ativa');
         }
     }
 
-    public function prepare($data){
+    public function prepare($data)
+    {
         $prepared = array();
 
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             $prepared[$key] = $this->escape($value);
         }
 
         return $prepared;
     }
 
-    public function escape($value){
-        if(is_string($value) and (!empty($value))){
+    public function escape($value)
+    {
+        if (is_string($value) and (!empty($value))) {
             $value = addslashes($value);
             return "'$value'";
-        }
-
-        else if(is_bool($value)){
+        } else if (is_bool($value)) {
             return $value ? 'TRUE' : 'FALSE';
-        }
-
-        else if($value!==''){
+        } else if ($value !== '') {
             return $value;
-        }
-        else{
+        } else {
             return "NULL";
         }
     }

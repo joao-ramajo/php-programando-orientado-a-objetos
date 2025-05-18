@@ -51,6 +51,7 @@ class ProdutoGateway
     {
         if (empty($this->data['id'])) {
             $id = $this->getLastId() + 1;
+           
             $sql = "INSERT INTO produto (id, descricao, estoque, preco_custo, preco_venda, codigo_barras, data_cadastro, origem) VALUES('{$id}', " .
                 "'{$this->descricao}'," .
                 "'{$this->estoque}'," . 
@@ -78,7 +79,7 @@ class ProdutoGateway
 
     public function getLastId()
     {
-        $sql = "SELECT max(id) as max FROM produto";
+        $sql = "SELECT max(id) as max FROM salgadinhos";
         $result = self::$conn->query($sql);
         $data = $result->fetch(PDO::FETCH_OBJ);
         return $data->max;

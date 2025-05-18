@@ -1,5 +1,5 @@
 <?php
-namespace D;
+namespace Livro\Database;
 use PDO;
 use Exception;
 

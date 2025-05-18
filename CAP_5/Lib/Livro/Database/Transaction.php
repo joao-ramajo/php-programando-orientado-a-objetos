@@ -1,7 +1,10 @@
 <?php
+
 namespace Livro\Database;
+
 use Connection;
 use Logger;
+
 final class Transaction
 {
     private static $conn;
@@ -9,37 +12,43 @@ final class Transaction
 
     private function __construct() {}
 
-    public static function open($database){
-        if(empty(self::$conn)){
+    public static function open($database)
+    {
+        if (empty(self::$conn)) {
             self::$conn = Connection::open($database);
             self::$conn->beginTransaction();
             self::$logger = NULL;
         }
     }
 
-    public static function setLogger(Logger $logger){
+    public static function setLogger(Logger $logger)
+    {
         self::$logger = $logger;
     }
 
-    public static function log($message){
-        if(self::$logger){
+    public static function log($message)
+    {
+        if (self::$logger) {
             self::$logger->write($message);
         }
     }
 
-    public static function get(){
+    public static function get()
+    {
         return self::$conn;
     }
 
-    public static function rollback(){
-        if(self::$conn){
+    public static function rollback()
+    {
+        if (self::$conn) {
             self::$conn->rollback();
             self::$conn = NULL;
         }
     }
 
-    public static function close(){
-        if(self::$conn){
+    public static function close()
+    {
+        if (self::$conn) {
             self::$conn->commit();
             self::$conn = NULL;
         }
